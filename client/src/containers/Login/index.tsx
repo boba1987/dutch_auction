@@ -1,22 +1,34 @@
-import React, {useState} from 'react';
-import SignInForm from '../../components/UserForm';
+import React, {useState, useEffect} from 'react';
+import UserForm from '../../components/UserForm';
 import Constants from '../../constants/userConstants';
+import {withRouter} from 'react-router-dom';
 
-const LoginPage = () => {
+export default withRouter(({history}) => {
   const [userName, setUserName] = useState('');
   const [password, setPassword] = useState('');
+  const [loggedIn, setLoggedIn] = useState(false);
+
   const handleSubmit = async (e: React.SyntheticEvent) => {
     e.preventDefault();
-    await fetch('/user/login', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        userName,
-        password
-      })
-    });
+    try {
+      let response = await fetch('/user/register', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          userName,
+          password
+        })
+      });
+      if (response.status === 200) {
+        await response.json();
+        setLoggedIn(true);
+      }
+    } catch (error) {
+      console.log('ne');
+      console.error('error: ', error);
+    }
   }
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -27,8 +39,12 @@ const LoginPage = () => {
       setUserName(event.target.value);
     }
   }
-  
-  return <SignInForm title="Login" onsubmit={handleSubmit} handleInputChange={handleInputChange}/>;
-}
 
-export default LoginPage;
+  useEffect(() => {
+    if (loggedIn) {
+      history.push('/');
+    }
+  }, [loggedIn]);
+  
+  return <UserForm title="Login" onsubmit={handleSubmit} handleInputChange={handleInputChange}/>;
+});
