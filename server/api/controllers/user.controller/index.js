@@ -1,5 +1,6 @@
 const tokenStore = require('../../utils/tokenStore');
 const { validationResult } = require('express-validator/check');
+const formatApiError = require('../../utils/APIError').formatApiError;
 // Replace with DB
 let users = [{
   id: 0,
@@ -10,7 +11,7 @@ let users = [{
 const saveUser = async ({userName, password}) => {
   const exists = users.some(user => user.userName === userName);
   if (exists) {
-    throw new Error('User name already exists');
+    throw new Error(formatApiError(400, 'User name already exists'));
   }
   
   users.push({
@@ -25,13 +26,7 @@ const login = async (req) => {
 
   let user = users.find(user => user.userName == userName);
   if (!user) {
-    throw new Error(JSON.stringify(
-      {
-        status: 403,
-        success: false,
-        message: 'Incorrect userName or password'
-      }
-    ));
+    throw new Error(formatApiError(403, 'Incorrect user name or password'));
   }
   let mockedUsername = user.userName.toString();
   let mockedPassword = user.password.toString();
@@ -47,28 +42,17 @@ const login = async (req) => {
         token: token
       }
     } else {
-      throw new Error(JSON.stringify(
-        {
-          status: 403,
-          success: false,
-          message: 'Incorrect userName or password'
-        }
-      ));
+      throw new Error(formatApiError(403, 'Incorrect user name or password'));
     }
   } else {
-    throw new Error(JSON.stringify({
-        status: 400,
-        success: false,
-        message: 'Authentication failed! Please check the request'
-      }
-    ));
+    throw new Error(formatApiError(400, 'Authentication failed! Please check the request'));
   }
 }
 
 exports.register = async (req, res) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
-      return res.status(400).json({ errors: errors.array() });
+      return res.status(400).send({ errors: errors.array() });
     }
 
     try {
@@ -76,7 +60,8 @@ exports.register = async (req, res) => {
       res.status(200).send(await login(req));
     } catch(error) {
       console.error(error);
-      return res.status(400).send(error.toString());
+      const status = typeof error == 'object' ? JSON.parse(error.message).status || 400 : 400
+      return res.status(status).send(error.toString());
     }
 }
 

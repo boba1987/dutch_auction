@@ -43,4 +43,20 @@ class APIError extends ExtendableError {
   }
 }
 
-module.exports = APIError;
+/**
+ * Class formating an API error.
+ */
+const formatApiError = (status, message) => {
+  return JSON.stringify(
+    {
+      status,
+      message,
+      success: false
+    }
+  )
+}
+
+module.exports = {
+  APIError,
+  formatApiError
+};

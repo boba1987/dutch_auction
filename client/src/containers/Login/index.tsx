@@ -11,7 +11,7 @@ export default withRouter(({history}) => {
   const handleSubmit = async (e: React.SyntheticEvent) => {
     e.preventDefault();
     try {
-      let response = await fetch('/user/register', {
+      let response = await fetch('/user/login', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'

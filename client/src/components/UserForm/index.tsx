@@ -9,7 +9,7 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import withStyles from '@material-ui/core/styles/withStyles';
-import { WithStyles, createStyles } from '@material-ui/core';
+import { WithStyles, createStyles, FormHelperText } from '@material-ui/core';
 import { Theme } from '@material-ui/core/styles/createMuiTheme';
 import Constants from '../../constants/userConstants';
 
@@ -55,7 +55,8 @@ interface SignInFormProps extends WithStyles<typeof styles>{
   },
   title: string,
   onsubmit(event: React.SyntheticEvent): void,
-  handleInputChange(event: React.ChangeEvent<HTMLInputElement>): void
+  handleInputChange(event: React.ChangeEvent<HTMLInputElement>): void,
+  error?: string
 }
 
 const SignInForm = (props: SignInFormProps) => {
@@ -89,6 +90,7 @@ const SignInForm = (props: SignInFormProps) => {
           >
             { title }
           </Button>
+          <FormHelperText id="component-error-text">{props.error}</FormHelperText>
         </form>
       </Paper>
     </main>
