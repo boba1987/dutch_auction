@@ -1,6 +1,6 @@
 let jwt = require('jsonwebtoken');
 
-let checkToken = (req, res, next) => {
+exports.checkToken = (req, res, next) => {
   let token = req.headers['x-access-token'] || req.headers['authorization']; // Express headers are auto converted to lowercase
   if (token.startsWith('Bearer ')) {
     // Remove Bearer from string
@@ -8,7 +8,7 @@ let checkToken = (req, res, next) => {
   }
 
   if (token) {
-    jwt.verify(token, process.env.secret, (err, decoded) => {
+    jwt.verify(token, process.env.SECRET, (err, decoded) => {
       if (err) {
         return res.json({
           success: false,
@@ -20,14 +20,14 @@ let checkToken = (req, res, next) => {
       }
     });
   } else {
-    return res.json({
+    return res.status(400).json({
       success: false,
-      message: 'Auth token is not supplied'
+      message: 'Auth token is not supplied',
     });
   }
 };
 
-const generateToken = (id, userName) => {
+exports.generateToken = (id, userName) => {
     return jwt.sign({
         id,
         userName
@@ -35,8 +35,4 @@ const generateToken = (id, userName) => {
         process.env.SECRET,
         { expiresIn: '24h'}
     );
-}
-module.exports = {
-    generateToken,
-    checkToken
 }

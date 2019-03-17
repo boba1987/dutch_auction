@@ -3,8 +3,8 @@ const { validationResult } = require('express-validator/check');
 // Replace with DB
 let users = [{
   id: 0,
-  userName: 123,
-  password: 1111
+  userName: 'user',
+  password: 'pass'
 }];
 
 const saveUser = async ({userName, password}) => {
@@ -24,7 +24,6 @@ const login = async (req) => {
   let {userName, password} = req.body;
 
   let user = users.find(user => user.userName == userName);
-  debugger;
   if (!user) {
     throw new Error(JSON.stringify(
       {
@@ -42,6 +41,7 @@ const login = async (req) => {
       let token = tokenStore.generateToken(user.id);
       // return the JWT token for the future API calls
       return {
+        userName,
         success: true,
         message: 'Authentication successful!',
         token: token
@@ -73,17 +73,15 @@ exports.register = async (req, res) => {
 
     try {
       await saveUser(req.body);
+      res.status(200).send(await login(req));
     } catch(error) {
       console.error(error);
       return res.status(400).send(error.toString());
     }
-
-    res.sendStatus(200);
 }
 
 exports.login = async (req, res) => {
   try {
-    debugger;
     let loginDetails = await login(req, res);
     res.json(loginDetails);
   } catch(error) {

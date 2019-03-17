@@ -1,7 +1,5 @@
 const express = require('express');
-
 const controller = require('../../controllers/user.controller');
-
 const router = express.Router();
 
 const { checkSchema } = require('express-validator/check');
@@ -25,7 +23,7 @@ router
      * Insert new user in the database
      */
     .post(checkSchema(userSchema), controller.register);
-    
+
 router
   .route('/login')
     .post(checkSchema(userSchema), controller.login)
