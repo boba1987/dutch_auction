@@ -7,8 +7,8 @@
   },
   "scripts": {
     "client": "cd client && yarn start",
-    "server": "nodemon --inspect backend",
-    "install": "cd backend && yarn install && cd .. && cd client && yarn install",
+    "server": "nodemon --inspect server",
+    "install": "cd server && yarn install && cd .. && cd client && yarn install",
     "dev": "concurrently --kill-others-on-fail \"yarn server\" \"yarn client\""
   }
 }
