@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import SignInForm from '../../components/UserForm';
 import Constants from '../../constants/userConstants';
 
-const LoginPage = () => {
+const SignUpPage = () => {
   const [userName, setUserName] = useState('');
   const [password, setPassword] = useState('');
   const handleSubmit = async (e: React.SyntheticEvent) => {
@@ -31,4 +31,4 @@ const LoginPage = () => {
   return <SignInForm title="Sign Up" onsubmit={handleSubmit} handleInputChange={handleInputChange}/>;
 }
 
-export default LoginPage;
+export default SignUpPage;

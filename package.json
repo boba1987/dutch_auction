@@ -7,7 +7,7 @@
   },
   "scripts": {
     "client": "cd client && yarn start",
-    "server": "cd backend && nodemon index.js",
+    "server": "nodemon --inspect backend",
     "install": "cd backend && yarn install && cd .. && cd client && yarn install",
     "dev": "concurrently --kill-others-on-fail \"yarn server\" \"yarn client\""
   }

@@ -24,6 +24,10 @@ router
     /**
      * Insert new user in the database
      */
-    .post(checkSchema(userSchema), controller.create)
+    .post(checkSchema(userSchema), controller.register);
+    
+router
+  .route('/login')
+    .post(checkSchema(userSchema), controller.login)
 
 module.exports = router;
