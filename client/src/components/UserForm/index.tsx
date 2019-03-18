@@ -63,7 +63,7 @@ interface SignInFormProps extends WithStyles<typeof styles>{
   error?: string
 }
 
-const SignInForm = (props: SignInFormProps) => {
+const UserForm = (props: SignInFormProps) => {
   const { classes, title } = props;
 
   return (
@@ -101,4 +101,4 @@ const SignInForm = (props: SignInFormProps) => {
   );
 }
 
-export default withStyles(styles)(SignInForm);
+export default withStyles(styles)(UserForm);
