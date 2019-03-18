@@ -1,4 +1,5 @@
 export default {
     userName: 'userName',
-    password: 'password'
+    password: 'password',
+    tokenKey: 'accessToken'
 }

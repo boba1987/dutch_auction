@@ -1,8 +1,9 @@
 import React, {useState, useEffect} from 'react';
+import axios from 'axios';
 import UserForm from '../../components/UserForm';
 import Constants from '../../constants/userConstants';
 import {withRouter, RouteComponentProps} from 'react-router-dom';
-import axios from 'axios';
+import userConstants from '../../constants/userConstants';
 
 interface AuthFormProps extends RouteComponentProps {
     url: string,
@@ -29,7 +30,7 @@ export default withRouter((props: AuthFormProps) => {
           'Content-Type': 'application/json'
         }
       });
-
+      localStorage.setItem(userConstants.tokenKey, response.data.token);
       setLoggedIn(true);
     } catch (error) {
       if (error.response.data.errors) {
