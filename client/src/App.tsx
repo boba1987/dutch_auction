@@ -6,10 +6,11 @@ import AuctionsPage from './containers/Auctions';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 import { AppBar, Toolbar, Button, } from '@material-ui/core';
 import { NavLink } from 'react-router-dom';
+import userConstants from './constants/userConstants';
 import { ProtectedRoute, ProtectedRouteProps}  from './components/PrivateRoute';
 
 const activeLinkStyle = {color: 'red', background: 'white'};
-const loggedIn = false;
+const hasToken = localStorage.getItem(userConstants.tokenKey);
 
 const defaultProtectedRouteProps: ProtectedRouteProps = {
   authenticationPath: '/login',
@@ -20,7 +21,7 @@ const App = () => {
     <Router>
       <AppBar position="static" className='appBar'>
         <Toolbar>
-          {loggedIn ? (
+          {hasToken ? (
             <Button variant="outlined" color="inherit">
               <a>Logout</a>
             </Button>
