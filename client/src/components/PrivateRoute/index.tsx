@@ -2,16 +2,14 @@ import React from 'react'
 import {Redirect, Route, RouteProps} from 'react-router';
 
 export interface ProtectedRouteProps extends RouteProps {
-    authenticationPath: string;
+    isLoggedIn: boolean
 }
-
-const isLoggedIn = false;
 
 export class ProtectedRoute extends Route<ProtectedRouteProps> {
     public render() {
         let redirectPath: string = '';
-        if (!isLoggedIn) {
-            redirectPath = this.props.authenticationPath;
+        if (!this.props.isLoggedIn) {
+            redirectPath = '/login';
         }
 
         if (redirectPath) {

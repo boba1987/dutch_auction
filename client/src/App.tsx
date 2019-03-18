@@ -7,14 +7,10 @@ import { BrowserRouter as Router, Route } from 'react-router-dom';
 import { AppBar, Toolbar, Button, } from '@material-ui/core';
 import { NavLink } from 'react-router-dom';
 import userConstants from './constants/userConstants';
-import { ProtectedRoute, ProtectedRouteProps}  from './components/PrivateRoute';
+import { ProtectedRoute }  from './components/PrivateRoute';
 
 const activeLinkStyle = {color: 'red', background: 'white'};
 const hasToken = localStorage.getItem(userConstants.tokenKey);
-
-const defaultProtectedRouteProps: ProtectedRouteProps = {
-  authenticationPath: '/login',
-};
 
 const App = () => {
   return (
@@ -22,9 +18,14 @@ const App = () => {
       <AppBar position="static" className='appBar'>
         <Toolbar>
           {hasToken ? (
-            <Button variant="outlined" color="inherit">
+            <div>
+              <Button variant="outlined" color="inherit">
               <a>Logout</a>
-            </Button>
+              </Button>
+              <Button variant="outlined" color="inherit">
+                <a>Add auction</a>
+              </Button>
+            </div>
           ) : (
             <div>
               <Button variant="outlined" color="inherit">
@@ -38,9 +39,9 @@ const App = () => {
         </Toolbar>
       </AppBar>
       <div className="App">
-        <ProtectedRoute 
-          {...defaultProtectedRouteProps}
+        <ProtectedRoute
           path="/" 
+          isLoggedIn={hasToken ? true : false}
           exact={true} 
           component={AuctionsPage} 
         />

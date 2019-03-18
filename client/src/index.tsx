@@ -3,6 +3,18 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
+import axios from 'axios';
+import userConstants from './constants/userConstants';
+
+axios.interceptors.request.use((config) => {
+    const token = localStorage.getItem(userConstants.tokenKey);
+    if (token) config.headers['x-access-token'] = `Bearer ${token}`;
+    // Do something before request is sent
+    return config;
+}, (error) => {
+    // Do something with request error
+    return Promise.reject(error);
+});
 
 ReactDOM.render(<App />, document.getElementById('root'));
 
