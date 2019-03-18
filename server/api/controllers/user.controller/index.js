@@ -60,8 +60,7 @@ exports.register = async (req, res) => {
       res.status(200).send(await login(req));
     } catch(error) {
       console.error(error);
-      const status = typeof error == 'object' ? JSON.parse(error.message).status || 400 : 400
-      return res.status(status).send(error.toString());
+      return res.status(JSON.parse(error.message).status).send(error.message);
     }
 }
 
@@ -71,7 +70,6 @@ exports.login = async (req, res) => {
     res.json(loginDetails);
   } catch(error) {
     console.error(error);
-    const status = typeof error == 'object' ? JSON.parse(error.message).status || 400 : 400
-    res.status(status).send(error.toString());
+    res.status(JSON.parse(error.message).status).send(error.message);
   }
 }

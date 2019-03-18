@@ -2,32 +2,32 @@ import React, {useState, useEffect} from 'react';
 import UserForm from '../../components/UserForm';
 import Constants from '../../constants/userConstants';
 import {withRouter} from 'react-router-dom';
+import axios from 'axios';
 
 export default withRouter(({history}) => {
   const [userName, setUserName] = useState('');
   const [password, setPassword] = useState('');
   const [loggedIn, setLoggedIn] = useState(false);
-
+  const [error, setError] = useState('');
+  
   const handleSubmit = async (e: React.SyntheticEvent) => {
     e.preventDefault();
     try {
-      let response = await fetch('/user/login', {
+      let response = await axios({
+        url: '/user/login',
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
+        data: {
           userName,
           password
-        })
+        },
+        headers: {
+          'Content-Type': 'application/json'
+        }
       });
-      if (response.status === 200) {
-        await response.json();
-        setLoggedIn(true);
-      }
+
+      setLoggedIn(true);
     } catch (error) {
-      console.log('ne');
-      console.error('error: ', error);
+      setError(`Error: ${error.response.data.message}`);
     }
   }
 
@@ -44,7 +44,7 @@ export default withRouter(({history}) => {
     if (loggedIn) {
       history.push('/');
     }
-  }, [loggedIn]);
+  }, [loggedIn, error]);
   
-  return <UserForm title="Login" onsubmit={handleSubmit} handleInputChange={handleInputChange}/>;
+  return <UserForm title="Login" onsubmit={handleSubmit} handleInputChange={handleInputChange} error={error}/>;
 });

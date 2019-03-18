@@ -43,6 +43,9 @@ const styles = (theme: Theme) => createStyles({
   submit: {
     marginTop: theme.spacing.unit * 3,
   },
+  error: {
+    color: 'red'
+  }
 });
 
 interface SignInFormProps extends WithStyles<typeof styles>{
@@ -51,7 +54,8 @@ interface SignInFormProps extends WithStyles<typeof styles>{
     paper:  string,
     avatar: string,
     form: string,
-    submit: string
+    submit: string,
+    error: string
   },
   title: string,
   onsubmit(event: React.SyntheticEvent): void,
@@ -90,7 +94,7 @@ const SignInForm = (props: SignInFormProps) => {
           >
             { title }
           </Button>
-          <FormHelperText id="component-error-text">{props.error}</FormHelperText>
+          <FormHelperText id="component-error-text" className={classes.error}>{props.error}</FormHelperText>
         </form>
       </Paper>
     </main>

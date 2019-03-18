@@ -27,8 +27,7 @@ export default withRouter(({history}) => {
 
       setLoggedIn(true);
     } catch (error) {
-      console.error('errorsdsads', JSON.parse(error.response.data));
-      setError(error.message);
+      setError(`Error: ${error.response.data.message}`);
     }
   }
 
@@ -44,9 +43,6 @@ export default withRouter(({history}) => {
   useEffect(() => {
     if (loggedIn) {
       history.push('/');
-    }
-    if (error) {
-      console.log(error);
     }
   }, [loggedIn, error]);
   
