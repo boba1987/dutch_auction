@@ -17,6 +17,15 @@ axios.interceptors.request.use((config) => {
     return Promise.reject(error);
 });
 
+axios.interceptors.response.use(function (response) {
+    // Do something with response data
+    return response;
+  }, function (error) {
+    // Do something with response error
+    if (error.response.status === 403) window.location.replace("/login");
+    return Promise.reject(error);
+  });
+
 ReactDOM.render(<App />, document.getElementById('root'));
 
 // If you want your app to work offline and load faster, you can change

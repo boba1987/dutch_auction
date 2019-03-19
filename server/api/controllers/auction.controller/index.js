@@ -5,7 +5,8 @@ const app = require('../../../index');
 const AUCTION_STATE = {
   ACTIVE: 'ACTIVE',
   PENDING: 'PENDING',
-  FAILED: 'FAILED'
+  FAILED: 'FAILED',
+  FINISHED: 'FINISHED'
 };
 
 let auctions = [
