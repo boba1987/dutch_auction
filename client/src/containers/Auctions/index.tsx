@@ -9,7 +9,9 @@ interface Auction {
   status: string,
   id: number,
   price: number,
-  seller: string
+  seller: string,
+  nextUpdate: string,
+  lastUpdate: string
 };
 
 class AuctionsPage extends Component<any, {auctions: Auction[]}> {
@@ -42,7 +44,9 @@ class AuctionsPage extends Component<any, {auctions: Auction[]}> {
           price={auction.price}
           title={auction.title}
           seller={auction.seller}
-          description={auction.description}/>)}
+          description={auction.description}
+          nextUpdate={auction.nextUpdate}
+          lastUpdate={auction.lastUpdate}/>)}
       </div>
     )
   }

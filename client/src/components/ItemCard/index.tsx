@@ -9,6 +9,8 @@ import CardMedia, {CardMediaProps} from '@material-ui/core/CardMedia';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import { Theme } from '@material-ui/core/styles/createMuiTheme';
+import moment from 'moment';
+const ReactCountdownClock = require('react-countdown-clock');
 
 const styles = (theme: Theme) => createStyles({
   card: {
@@ -31,7 +33,9 @@ interface ImgMediaCardProps extends WithStyles<typeof styles>{
   description: string,
   status: string,
   price: number,
-  seller: string
+  seller: string,
+  nextUpdate: string,
+  lastUpdate: string
 }
 
 interface CardMediaPropsCustom extends CardMediaProps {
@@ -46,7 +50,13 @@ const CardMediaComponent = (props: CardMediaPropsCustom) => (
 );
 
 const ImgMediaCard = (props: ImgMediaCardProps) => {
-  const { classes, title, description, status, price, seller } = props;
+  const { classes, title, description, status, price, seller, nextUpdate, lastUpdate } = props;
+  const now = moment(moment().format());
+  const next = moment(nextUpdate);
+  console.log(now);
+  console.log(next);
+  console.log(next.diff(now, 'seconds'));
+  
   return (
     <Card className={classes.card}>
       <CardActionArea>
@@ -70,11 +80,21 @@ const ImgMediaCard = (props: ImgMediaCardProps) => {
       </CardActionArea>
       {
         status == 'ACTIVE' ? (
-          <CardActions>
+          <div>
+            <CardActions>
             <Button size="small" color="primary">
               Make a Bid
             </Button>
-          </CardActions>
+            </CardActions>
+            Time to price update:
+            <CardActions>
+              <ReactCountdownClock 
+                seconds={next.diff(now, 'seconds')}
+                color="#000"
+                alpha={0.9}
+                size={50} />
+            </CardActions>
+          </div>
         ) : ''
       }
     </Card>
