@@ -8,6 +8,7 @@ const helmet = require('helmet');
 const routes = require('../api/routes/v1');
 const { logs } = require('./vars');
 const error = require('../api/middlewares/error');
+const { taskerInit } = require('./tasker');
 
 /**
 * Express instance
@@ -46,5 +47,8 @@ app.use(error.notFound);
 
 // error handler, send stacktrace only during development
 app.use(error.handler);
+
+// init auctions update and load task
+taskerInit();
 
 module.exports = app;
