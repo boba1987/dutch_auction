@@ -9,6 +9,7 @@ import userConstants from './constants/userConstants';
 axios.interceptors.request.use((config) => {
     const token = localStorage.getItem(userConstants.tokenKey);
     if (token) config.headers['x-access-token'] = `Bearer ${token}`;
+    config.headers['Content-Type'] = 'application/json'
     // Do something before request is sent
     return config;
 }, (error) => {

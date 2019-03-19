@@ -25,9 +25,6 @@ export default withRouter((props: AuthFormProps) => {
         data: {
           userName,
           password
-        },
-        headers: {
-          'Content-Type': 'application/json'
         }
       });
       localStorage.setItem(userConstants.tokenKey, response.data.token);
@@ -56,7 +53,7 @@ export default withRouter((props: AuthFormProps) => {
 
   useEffect(() => {
     if (loggedIn) {
-        props.history.push('/');
+      props.history.push('/');
     }
   }, [loggedIn, error]);
   

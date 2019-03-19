@@ -7,7 +7,6 @@ import { BrowserRouter as Router, Route } from 'react-router-dom';
 import { AppBar, Toolbar, Button, } from '@material-ui/core';
 import { NavLink } from 'react-router-dom';
 import userConstants from './constants/userConstants';
-import { ProtectedRoute }  from './components/PrivateRoute';
 
 const activeLinkStyle = {color: 'red', background: 'white'};
 const hasToken = localStorage.getItem(userConstants.tokenKey);
@@ -39,12 +38,7 @@ const App = () => {
         </Toolbar>
       </AppBar>
       <div className="App">
-        <ProtectedRoute
-          path="/" 
-          isLoggedIn={hasToken ? true : false}
-          exact={true} 
-          component={AuctionsPage} 
-        />
+        <Route path="/" exact component={AuctionsPage} />
         <Route path="/login" exact component={LoginPage} />
         <Route path="/sign-up" exact component={SignUpPage} />
       </div>
