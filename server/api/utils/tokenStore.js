@@ -10,7 +10,7 @@ exports.checkToken = (req, res, next) => {
   if (token) {
     jwt.verify(token, process.env.SECRET, (err, decoded) => {
       if (err) {
-        return res.json({
+        return res.status(403).json({
           success: false,
           message: 'Token is not valid'
         });

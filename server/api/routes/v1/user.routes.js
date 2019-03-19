@@ -1,7 +1,6 @@
 const express = require('express');
 const controller = require('../../controllers/user.controller');
 const router = express.Router();
-
 const { checkSchema } = require('express-validator/check');
 const userSchema = {
   userName: {
