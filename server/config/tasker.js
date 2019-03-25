@@ -1,5 +1,6 @@
 const schedule = require('node-schedule');
-const {getAuctions, updateAuctions, loadPendingAuctions, emitAuctions} = require('../api/controllers/auction.controller');
+const {getAuctions, updateAuctions, loadPendingAuctions} = require('../api/controllers/auction.controller');
+const {emitAuctions} = require('../api/controllers/auction.controller/ws');
 
 const TASKS = {
     UPDATE_AUTIONS_STATE: 'UPDATE_AUTIONS_STATE',

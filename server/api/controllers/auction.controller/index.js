@@ -1,7 +1,6 @@
 const moment = require('moment');
 const { validationResult } = require('express-validator/check');
 const {isAuctionFailed} = require('./utils');
-const app = require('../../../index');
 const AUCTION_STATE = {
   ACTIVE: 'ACTIVE',
   PENDING: 'PENDING',
@@ -60,27 +59,6 @@ exports.loadPendingAuctions = async (auctions) => {
 
 exports.getAuctions = () => {
   return auctions;
-}
-
-
-exports.emitAuctions = async () => {
-  ws("auctions", auctions);
-}
-
-// init websockets
-const http = require('http').Server(app);
-const io = require('socket.io')(http);
-http.listen(4001, () => {
-  console.log("listening on *:4001");
-});
-let connections = [];
-io.on("connection", (socket) => {
-    console.log("a user connected");
-    connections.push(socket);
-});
-
-const ws = async (signal, data) => {
-  connections.forEach(connection => connection.emit(signal, data));
 }
 
 exports.get = (req, res) => {
