@@ -9,7 +9,6 @@ import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import { Theme } from '@material-ui/core/styles/createMuiTheme';
 import moment from 'moment';
-import {CountdownTimer} from '../Timer';
 
 const styles = (theme: Theme) => createStyles({
   card: {
@@ -64,11 +63,6 @@ const ImgMediaCard = (props: ImgMediaCardProps) => {
       {
         status == 'ACTIVE' ? (
           <div>
-            <CardActions>
-            <Button size="small" color="primary">
-              Make a Bid
-            </Button>
-            </CardActions>
             <Typography component="p">
               Last price update: 
               { moment(lastUpdate).format('LLLL') }
@@ -76,6 +70,11 @@ const ImgMediaCard = (props: ImgMediaCardProps) => {
             <Typography component="p">
               Next price update: { moment(nextUpdate).format('LLLL') }
             </Typography>
+            <CardActions>
+              <Button size="small" color="primary">
+                Make a Bid
+              </Button>
+            </CardActions>
           </div>
         ) : ''
       }

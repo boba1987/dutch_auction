@@ -30,7 +30,7 @@ const auctionSchema = {
 
 router
   .route('/')
-    .post(checkToken, checkSchema(auctionSchema), controller.create)
-    .get(checkToken, controller.get)
+    .post(checkSchema(auctionSchema), controller.create)
+    .get(controller.get)
 
 module.exports = router;

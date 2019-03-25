@@ -19,9 +19,6 @@ const App = () => {
           {hasToken ? (
             <div>
               <Button variant="outlined" color="inherit">
-              <a>Logout</a>
-              </Button>
-              <Button variant="outlined" color="inherit">
                 <a>Add auction</a>
               </Button>
             </div>
