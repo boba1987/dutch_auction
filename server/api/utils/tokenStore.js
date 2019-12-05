@@ -20,12 +20,12 @@ exports.checkToken = (req, res, next) => {
         next();
       }
     });
-  } else {
-    return res.status(403).json({
-      success: false,
-      message: 'Token is not valid'
-    });
   }
+  
+  return res.status(403).json({
+    success: false,
+    message: 'Token is not valid'
+  });
 };
 
 exports.generateToken = (id, userName) => {
