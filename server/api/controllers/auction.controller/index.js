@@ -46,7 +46,7 @@ exports.updateAuctions = async (auctions) => {
       price: Math.round((auction.price*0.8) * 100) / 100,
       status: isAuctionFailed(auction) ? AUCTION_STATE.FAILED : AUCTION_STATE.ACTIVE,
       lastUpdate: moment().format(),
-      nextUpdate: moment(this.start).add(1, 'minutes').format();
+      nextUpdate: moment(this.start).add(1, 'minutes').format()
     }
   });
 };
