@@ -42,18 +42,22 @@ const auctionPredefinedFields = {
 
 exports.updateAuctions = async (auctions) => {
   auctions.filter(auction => auction.status === AUCTION_STATE.ACTIVE).forEach((auction) => {
-    auctions[auction.id].price = Math.round((auction.price*0.8) * 100) / 100;
-    auctions[auction.id].status = isAuctionFailed(auction) ? AUCTION_STATE.FAILED : AUCTION_STATE.ACTIVE;
-    auctions[auction.id].lastUpdate = moment().format();
-    auctions[auction.id].nextUpdate = moment(this.start).add(1, 'minutes').format();
+    auctions[auction.id] = {
+      price: Math.round((auction.price*0.8) * 100) / 100,
+      status: isAuctionFailed(auction) ? AUCTION_STATE.FAILED : AUCTION_STATE.ACTIVE,
+      lastUpdate: moment().format(),
+      nextUpdate: moment(this.start).add(1, 'minutes').format();
+    }
   });
 };
 
 exports.loadPendingAuctions = async (auctions) => {
   auctions.filter(auction => auction.status === AUCTION_STATE.PENDING).forEach((auction) => {
-    auctions[auction.id].status = AUCTION_STATE.ACTIVE;
-    auctions[auction.id].lastUpdate = moment().format();
-    auctions[auction.id].nextUpdate = moment(this.start).add(1, 'minutes').format();
+    auctions[auction.id] = {
+      status: AUCTION_STATE.ACTIVE,
+      lastUpdate: moment().format(),
+      nextUpdate = moment(this.start).add(1, 'minutes').format()
+    }
   });
 }
 
